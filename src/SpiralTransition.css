@@ -1,0 +1,16 @@
+.spiral-enter {
+  animation: spiralIn 1s ease-out forwards;
+  opacity: 0;
+  transform-origin: center;
+}
+
+@keyframes spiralIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1) rotate(720deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}

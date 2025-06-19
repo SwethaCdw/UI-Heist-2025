@@ -1,0 +1,218 @@
+/* General Layout */
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.console {
+  width: 95%;
+  height: 95%;
+  background-color: #c4b79e;
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Left Panel */
+.left-panel {
+  width: 260px;
+  background-color: #5e4b36;
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.container-old {
+        background-color: #776349;
+        margin-top: 150px;
+        padding: 55px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        font-family: 'Press Start 2P', cursive;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 90px;
+    }
+/* D-Pad */
+.dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.horizontal-arrows {
+  display: flex;
+  gap: 5px;
+}
+
+.arrow-old,
+.center {
+  width: 32px;
+  height: 32px;
+  background-color: #dcdcdc;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+border: 2px solid black;
+}
+
+.center {
+  background-color: white;
+}
+
+/* Volume */
+.volume-control {
+  margin-top: 20px;
+  color: black;
+      display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.volume-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.volume-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.volume-buttons button {
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.volume-bars {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.bar {
+  width: 4px;
+  height: 16px;
+  background-color: #666;
+}
+
+.bar.active {
+  background-color: #33aa55;
+}
+
+/* Status */
+.status {
+  font-size: 12px;
+  margin-top: auto;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.connected {
+  background-color: #003f20;
+  color: #6fffbf;
+  padding: 10px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+/* Right Panel */
+.right-panel {
+  flex: 1;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen-old-wrapper {
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  border: 4px solid #1c1c1c;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Game screen */
+.screen-old {
+  flex: 1;
+  background-color: #141414;
+  border-radius: 4px;
+  border: 1px solid #000;
+}
+
+/* Button Row */
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.button-row button {
+  padding: 10px 16px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.start {
+  background-color: #2d5f38;
+}
+.start:hover{
+    filter: brightness(1.5);
+}
+.power {
+  background-color: #222;
+}
+
+.stop {
+  background-color: #a52a2a;
+}
+
+/* For titles and buttons */
+.title,
+.start,
+.stop,
+.power {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* For Volume label */
+.volume-label-old {
+  font-family: 'Special Elite', cursive;
+}
