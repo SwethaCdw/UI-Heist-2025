@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import OldNintendo from './OldNintendo';
+import NewNintendo from './NewNintendo';
+import './SpiralTransition.css';
 
 function App() {
+  const [gameStarted, setGameStarted] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {gameStarted ? (
+         <div className="spiral-enter">
+          <NewNintendo />
+         </div>
+      ) : (
+        <OldNintendo onStart={() => setTimeout(() => setGameStarted(true), 1000)} />
+      )}
+    </>
   );
 }
 
