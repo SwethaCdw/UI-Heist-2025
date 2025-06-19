@@ -9,11 +9,13 @@ function App() {
   return (
     <>
       {gameStarted ? (
-         <div className="spiral-enter">
+        <div className="spiral-enter">
           <NewNintendo />
-         </div>
+        </div>
       ) : (
-        <OldNintendo onStart={() => setTimeout(() => setGameStarted(true), 1000)} />
+        <OldNintendo
+          onStart={() => setTimeout(() => setGameStarted(true), 1000)}
+        />
       )}
     </>
   );
