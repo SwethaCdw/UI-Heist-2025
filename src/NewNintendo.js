@@ -63,7 +63,7 @@ function NewNintendo() {
 
       <div className="nintendo-header">
                     <span className="nintendo-title">You’ve Just Unlocked Mario Mode !</span>
-       <img style={{ width: "170px", height: "100px", visibility: showClickHere ? "" : "hidden"}} src='/assets/click.gif' className="click" alt="Click here" />
+       <img style={{ visibility: showClickHere ? "" : "hidden"}} src='/assets/click-here.png' className="click-here" alt="Click here" />
       <img
         src="/assets/settings.png"
         className="handbook-icon"

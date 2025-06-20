@@ -15,7 +15,7 @@ html,
   background: black;
   padding: 10px;
   box-sizing: border-box;
-      margin-top: -75px;
+      margin-top: 35px;
 }
 
 .joycon::before {
@@ -640,4 +640,22 @@ html,
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   z-index: 10; /* Ensure it stays on top if needed */
+}
+
+.click-here {
+  width: 170px;
+    height: 155px;
+    position: absolute;
+    top: 51px;
+    right: -61px;
+    z-index: 10;
+    animation: bounceTitle 2s infinite ease-in-out;
+}
+@keyframes bounceTitle {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-20px);
+  }
 }
