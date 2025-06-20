@@ -271,3 +271,7 @@
   cursor: pointer;
   box-shadow: 0 0 10px #00ff88;
 }
+
+.obstacle {
+   animation: bounce 0.6s infinite alternate;
+}
