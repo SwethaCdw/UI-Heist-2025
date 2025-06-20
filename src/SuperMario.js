@@ -273,11 +273,9 @@ const [isMuted, setIsMuted] = useState(false);
   }, [isGameOver, showGif]);
 
   useEffect(() => {
-    if (directionFromJoycon?.direction) {
-      move(directionFromJoycon.direction);
-    }
-  }, [directionFromJoycon.direction]);
-
+    move(directionFromJoycon.direction);
+  }, [directionFromJoycon]);
+  
   if (currentLevel === 2) {
     return (
       <SuperMario2 volume={volume} directionFromJoycon={directionFromJoycon} />
