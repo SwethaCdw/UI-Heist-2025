@@ -14,11 +14,13 @@ function SuperMario2({ volume, directionFromJoycon }) {
   const volumeTimeoutRef = useRef(null);
   const [showGif, setShowGif] = useState(false);
   const marioRef = useRef(null);
+const [isMuted, setIsMuted] = useState(false);
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isJumping, setIsJumping] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(2);
-
+  const [isMoving, setIsMoving] = useState(false);
+  const [facingDirection, setFacingDirection] = useState('right');
   const [brickBlocks, setBrickBlocks] = useState([{ id: 1, x: 400, y: 170 }]);
   const [coins, setCoins] = useState([
     { id: 1, x: 300, y: 100 },
@@ -58,9 +60,32 @@ function SuperMario2({ volume, directionFromJoycon }) {
     }
   };
 
+    const toggleMute = () => {
+  const muteState = !isMuted;
+  setIsMuted(muteState);
+
+  const volumeValue = muteState ? 0 : volume;
+
+  if (audioRef.current) audioRef.current.volume = volumeValue;
+  if (jumpAudioRef.current) jumpAudioRef.current.volume = volumeValue;
+  if (coinAudioRef.current) coinAudioRef.current.volume = volumeValue;
+  if (gameOverAudioRef.current) gameOverAudioRef.current.volume = volumeValue;
+  if (victoryAudioRef.current) victoryAudioRef.current.volume = volumeValue;
+};
+
+
   const move = dir => {
     if (isGameOver) return;
+    setFacingDirection(dir); // save direction
 
+    if (dir === 'left' || dir === 'right') {
+      setIsMoving(true);
+    }
+
+    if (dir === 'up') {
+      setIsJumping(true);
+      setIsMoving(false); // Not running while jumping
+    }
     const delta = dir === 'left' ? -50 : dir === 'right' ? 80 : 0;
     const newX = Math.min(850, Math.max(0, position.x + delta));
     const marioLeft = newX;
@@ -169,15 +194,27 @@ function SuperMario2({ volume, directionFromJoycon }) {
   };
 
   // Keyboard controls
-  useEffect(() => {
-    const handleKeyDown = e => {
-      if (e.key === 'ArrowLeft') move('left');
-      if (e.key === 'ArrowRight') move('right');
-      if (e.key === 'ArrowUp') move('up');
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [position, isJumping, isGameOver]);
+ useEffect(() => {
+     const handleKeyDown = e => {
+       if (e.key === 'ArrowLeft') move('left');
+       if (e.key === 'ArrowRight') move('right');
+       if (e.key === 'ArrowUp') move('up');
+     };
+ 
+     const handleKeyUp = e => {
+     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+       setIsMoving(false);
+     }
+     };
+ 
+     window.addEventListener('keydown', handleKeyDown);
+     window.addEventListener('keyup', handleKeyUp);
+ 
+     return () => {
+         window.removeEventListener('keyup', handleKeyUp);
+         window.removeEventListener('keydown', handleKeyDown)
+       };
+   }, [position, isJumping, isGameOver]);
 
   // Joycon input
   useEffect(() => {
@@ -185,18 +222,18 @@ function SuperMario2({ volume, directionFromJoycon }) {
   }, [directionFromJoycon]);
 
   // Volume update
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-      jumpAudioRef.current.volume = volume;
-      coinAudioRef.current.volume = volume;
-      gameOverAudioRef.current.volume = volume;
-      victoryAudioRef.current.volume = volume;
-    }
+ useEffect(() => {
+    const volumeValue = isMuted ? 0 : volume;
+    if (audioRef.current) audioRef.current.volume = volumeValue;
+  if (jumpAudioRef.current) jumpAudioRef.current.volume = volumeValue;
+  if (coinAudioRef.current) coinAudioRef.current.volume = volumeValue;
+  if (gameOverAudioRef.current) gameOverAudioRef.current.volume = volumeValue;
+  if (victoryAudioRef.current) victoryAudioRef.current.volume = volumeValue;
+
     setShowVolumeUI(true);
     clearTimeout(volumeTimeoutRef.current);
     volumeTimeoutRef.current = setTimeout(() => setShowVolumeUI(false), 1500);
-  }, [volume]);
+  }, [volume, isMuted]);
 
   // Loader timeout
   useEffect(() => {
@@ -261,6 +298,13 @@ function SuperMario2({ volume, directionFromJoycon }) {
         <div className="main-game-assets2">
           <h1 className="super-heading2">LEVEL 2</h1>
           <div className="score-box">Score: {score}</div>
+           <div className="mute-button" onClick={toggleMute}>
+          <img
+            src={isMuted ? '/assets/mute.webp' : '/assets/volume.webp'}
+            alt="Mute Toggle"
+            className={isMuted ? "mute-icon" : "volume-icon"}
+          />
+          </div>
           <div
             className="character-switch"
             onClick={() => {
@@ -272,9 +316,6 @@ function SuperMario2({ volume, directionFromJoycon }) {
               alt="Switch Icon"
               className="switch-icon"
             />
-            {/* <span className="switch-label">
-              Switch to {character === 'mario' ? 'Peach' : 'Mario'}
-            </span> */}
           </div>
 
           {isGameOver && (
@@ -290,9 +331,9 @@ function SuperMario2({ volume, directionFromJoycon }) {
                 onClick={handleRestart}
               />
               <img
-                src={`${character === 'mario' ? '/assets/mario-death.gif' : '/assets/princess.png'}`}
+                src={`${character === 'mario' ? '/assets/mario-death.png' : '/assets/princess.png'}`}
                 alt="Game Over"
-                className="game-over-gif2"
+                className={`game-over-gif2 ${isGameOver ? 'mario-death-animation' : ''} `}
                 style={{
                   backgroundSize: 'cover',
                   ...(character === 'peach' && {
@@ -310,20 +351,24 @@ function SuperMario2({ volume, directionFromJoycon }) {
                 ref={marioRef}
                 className={`mario2 ${isJumping ? 'jump' : ''}`}
                 src={
-                  character === 'mario'
-                    ? '/assets/2d-mario-1.png'
-                    : '/assets/princess.png'
+                  character === 'peach' ? `/assets/princess.png` :
+                  isJumping
+                    ? `/assets/running-stop.png` // add jump image if needed
+                    : isMoving
+                      ? `/assets/mario-running.gif`
+                      : `/assets/running-stop.png` // standing
                 }
                 alt={character}
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px)`,
                   backgroundSize: 'cover',
+                  transform: `translate(${position.x}px, ${position.y}px) scaleX(${facingDirection === 'left' ? -1 : 1})`,
                   ...(character === 'peach' && {
-                    width: '90px',
-                    height: '112px',
+                    width: '100px',
+                    height: '135px',
                   }),
                 }}
-              ></img>
+              />
               {brickBlocks.map(brick => (
                 <div
                   key={brick.id}
@@ -370,8 +415,9 @@ function SuperMario2({ volume, directionFromJoycon }) {
                   style={{
                     backgroundSize: 'cover',
                     ...(character === 'peach' && {
-                      width: '130px',
-                      height: '135px',
+                      width: '230px',
+                      height: '205px',
+                      bottom: '65px',
                     }),
                   }}
                 />

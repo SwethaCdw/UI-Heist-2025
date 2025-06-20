@@ -82,9 +82,9 @@
 .mario {
   position: absolute;
   bottom: 70px;
-  width: 90px;
-  height: 112px;
-  transition: transform 0.2s ease-in-out;
+  width: 135px;
+  height: 135px;
+  transition: transform 0.3s ease;
 }
 .flag {
   width: 115px;
@@ -98,16 +98,16 @@
   position: absolute;
   bottom: 70px;
   right: 20px;
-  width: 135px;
-  height: 180px;
+  width: 120px;
+  height: 170px;
   z-index: 10;
 }
 .game-over-gif {
   position: absolute;
   bottom: 60px;
   right: 400px;
-  width: 100px;
-  height: 120px;
+  width: 125px;
+  height: 135px;
 }
 
 .coin {
@@ -272,4 +272,80 @@
   cursor: pointer;
   box-shadow: 0 0 10px #00ff88;
   font-size: 10px;
+}
+
+.mario-sprite {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: auto;
+  image-rendering: pixelated;
+}
+.mario-sprite.flip {
+  transform: scaleX(-1);
+}
+
+@keyframes mario-death {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-60px); /* jump up */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200px); /* fall down */
+    opacity: 0;
+  }
+}
+
+.mario-death-animation {
+  animation: mario-death 1.5s ease-in forwards;
+}
+
+
+.mute-button {
+  position: absolute;
+  top: 16px;
+  right: 110px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(145deg, #f5f5f5, #dcdcdc);
+  border: 2px solid #aaa;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.mute-button:hover {
+  background: linear-gradient(145deg, #e0e0e0, #bdbdbd);
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px rgba(255, 223, 0, 0.6); /* golden glow on hover */
+}
+
+.mute-icon {
+    width: 35px;
+    height: 35px;
+    margin-left: 3px;
+    margin-top: 2px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.mute-button:active .mute-icon {
+  transform: scale(0.95);
+}
+
+.volume-icon {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.mute-button:active .volume-icon {
+  transform: scale(0.95);
 }

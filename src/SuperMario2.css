@@ -81,9 +81,9 @@
 }
 .mario2 {
   position: absolute;
-  bottom: 90px;
-  width: 90px;
-  height: 112px;
+  bottom: 80px;
+  width: 135px;
+  height: 135px;
   transition: transform 0.2s ease-in-out;
 }
 .flag2 {
@@ -98,8 +98,8 @@
   position: absolute;
   bottom: 80px;
   right: 80px;
-  width: 135px;
-  height: 180px;
+  width: 120px;
+  height: 160px;
   z-index: 10;
 }
 .game-over-gif2 {

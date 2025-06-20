@@ -15,6 +15,7 @@ html,
   background: black;
   padding: 10px;
   box-sizing: border-box;
+      margin-top: -75px;
 }
 
 .joycon::before {
@@ -541,8 +542,8 @@ html,
   width: 420px;
   max-width: 90%;
   color: black;
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 15px;
+    font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
   animation: popIn 0.4s ease-in-out;
   position: relative;
   text-shadow: 0 0 5px #ffa500;
@@ -600,7 +601,7 @@ html,
   cursor: pointer;
   display: block;
   margin: 0 auto;
-  font-family: 'Press Start 2P', sans-serif;
+  font-family:'Segoe UI', sans-serif;
   box-shadow: 0 0 10px #ffa500;
   transition: all 0.2s ease-in-out;
   margin-top: 35px;
@@ -610,4 +611,33 @@ html,
   background-color: #ffa500;
   transform: scale(1.05);
   box-shadow: 0 0 15px #ffa500;
+}
+
+.nintendo-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.nintendo-title {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  font-size: 40px;
+  color: #00cfff;
+  letter-spacing: 3px;
+  text-align: center;
+  text-shadow:
+    2px 2px 0 #fff200,
+    4px 4px 0 #8000ff,
+    6px 6px 0 #000000;
+
+  background: linear-gradient(to right, #00f0ff, #a0f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  z-index: 10; /* Ensure it stays on top if needed */
 }

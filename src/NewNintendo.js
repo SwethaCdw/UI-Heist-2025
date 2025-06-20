@@ -11,6 +11,7 @@ function NewNintendo() {
   const [showMario, setShowMario] = useState(false);
   const [showMenuBar, setShowMenuBar] = useState(false);
   const [showHandbook, setShowHandbook] = useState(false);
+  const [showClickHere, setShowClickHere] = useState(true);
 
   const [marioDirection, setMarioDirection] = useState({
     direction: '',
@@ -59,12 +60,17 @@ function NewNintendo() {
 
   return (
     <>
+
+      <div className="nintendo-header">
+                    <span className="nintendo-title">You’ve Just Unlocked Mario Mode !</span>
+       <img style={{ width: "170px", height: "100px", visibility: showClickHere ? "" : "hidden"}} src='/assets/click.gif' className="click" alt="Click here" />
       <img
         src="/assets/settings.png"
         className="handbook-icon"
-        onClick={() => setShowHandbook(true)}
+        onClick={() => {setShowHandbook(true); setShowClickHere(false);}}
         alt="handbook"
       ></img>
+      </div>
       <div className="switch">
         {showHandbook && (
           <div
@@ -72,8 +78,8 @@ function NewNintendo() {
             onClick={() => setShowHandbook(false)}
           >
             <div className="handbook-modal" onClick={e => e.stopPropagation()}>
-              <h2>
-                Game Controls<p>( Use Keyboard Keys ) </p>
+              <h2 style={{ fontSize: '24px'}}>
+                Game Controls<p style={{ color: "black", fontSize: "19px"}}>Note: Use Keyboard keys to move and jump!</p>
               </h2>
 
               <ul className="controls-list">
@@ -212,7 +218,7 @@ function NewNintendo() {
               {powerOn && !videoEnded && (
                 <video
                   className="screen-video"
-                  src="/hello-all.mp4"
+                  src="/assets/tv-noise.mp4"
                   autoPlay
                   onEnded={() => setVideoEnded(true)}
                 />
